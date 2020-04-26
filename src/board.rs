@@ -77,12 +77,15 @@ impl Board {
             self.black ^= rev;
         }
 
-        let black_diff = self.black ^ board_before.black;
-        let white_diff = self.white ^ board_before.white;
-
         match turn {
-            Turn::BLACK => Some(Board::make(black_diff, 0)),
-            Turn::WHITE => Some(Board::make(0, white_diff)),
+            Turn::BLACK => {
+                let diff = self.black ^ board_before.black;
+                Some(Board::make(diff, 0))
+            }
+            Turn::WHITE => {
+                let diff = self.white ^ board_before.white;
+                Some(Board::make(0, diff))
+            }
             _ => None,
         }
     }
